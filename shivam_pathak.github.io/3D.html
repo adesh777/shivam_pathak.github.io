@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>Gopal Oswal</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #blocker {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			/* background-color: rgba(0,0,0,0.8); */
+            background-color: #5547a4;
+		}
+        #unblocker {
+            /* display: none; */
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        #game_instructions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            border: 2px solid #5547a4;
+            color: #fff;
+            padding: 10px;
+            height: auto;
+            background-color: #5547a4b5;
+            border-radius: 7px;
+            font-weight: bold;
+            text-align: justify;
+            font-family: serif;
+            max-width: 250px;
+        }
+        #game_instructions p {
+            margin: 0;
+            padding: 0;
+        }
+        #interaction_text {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            animation: interaction_animation;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            /* color: #5547a4; */
+            font-weight: bold;
+        }
+
+		#instructions {
+			width: 100%;
+			height: 100%;
+
+			display: -webkit-box;
+			display: -moz-box;
+			display: box;
+
+			-webkit-box-orient: horizontal;
+			-moz-box-orient: horizontal;
+			box-orient: horizontal;
+
+			-webkit-box-pack: center;
+			-moz-box-pack: center;
+			box-pack: center;
+
+			-webkit-box-align: center;
+			-moz-box-align: center;
+			box-align: center;
+
+			color: #ffffff;
+			text-align: center;
+			font-family: Arial;
+			font-size: 14px;
+			line-height: 24px;
+
+			cursor: pointer;
+		}
+        #loader {
+            /* visibility: visible; */
+            background-color: #5547a4;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .welcome {
+            font-size: 80px;
+            margin: 0;
+        }
+        h1 {
+            color: #fff;
+            margin: 0;
+        }
+        .contact {
+            position: absolute;
+            left: 30px;
+            bottom: 30px;
+        }
+        .contact a {
+            color: #ffffff;
+            font-size: 40px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #unblocker1 {
+            display: none;
+            width: 100%;
+            position: absolute;
+            bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .playBtn {
+
+        }
+        .playBtn1 {
+            display: none;
+        }
+        .mobile_instructions {
+            display: none;
+        }
+        .playIcon {
+            font-size: 100px;
+            background: #5547a4;
+            border-radius: 100%;
+            padding: 5px;
+        }
+        .playIconWrapper1 {
+            width: 150px;
+            height: 150px;
+            background: #fbfbfb63;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation:  playIconAnimation1;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+        }
+        .playIconWrapper2 {
+            width: 200px;
+            height: 200px;
+            background: #e4dddd61;
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation:  playIconAnimation2;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+        }
+        @media only screen and (max-width: 600px) {
+            #unblocker1 {
+                display: none;
+            }
+            .web_intruction {
+                display: none;
+            }
+            .mobile_instructions {
+                display: unset;
+            }
+            #instructions .playBtn {
+                display: none;
+            }
+            .playBtn {
+                display: none;
+            }
+            .playBtn1 {
+                display: unset;
+                z-index: 100000;
+            }
+        }
+        @keyframes interaction_animation {
+            0%{
+                opacity: 0;
+            }
+            50% {
+                opacity: 100%;
+            }
+            100% {
+                opacity: 0%;
+            }
+        }
+        @keyframes playIconAnimation1 {
+            0% {
+                width: 90px;
+                height: 90px;
+            }
+            50% {
+                width: 150px;
+                height: 150px;
+
+            }
+            100% {
+                width: 90px;
+                height: 90px;
+            }
+        }
+        @keyframes playIconAnimation2 {
+            0% {
+                width: 90px;
+                height: 90px;
+            }
+            50% {
+                width: 200px;
+                height: 200px;
+            }
+            100% {
+                height: 90px;
+                width: 90px;
+            }
+        }
+        .settings {
+            position: absolute;
+            right: 10px;
+            top: 100px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader">
+        <!-- <h1 class="welcome">
+            Welcome
+        </h1> -->
+        <h1>
+            Loading ...
+        </h1>
+    </div>
+    <div id="unblocker">Press ESC to exit</div>
+    <div id="game_instructions">
+    <!-- <div style="position: absolute ; top: 10px; left: 10px;"> -->
+        <p id="game_instructions_text"></p>
+    </div>
+    <span id="interaction_text"></span>
+    <div id="unblocker1">
+    </div>
+    <div id="blocker">
+        <div class="settings">
+            <h3>Customize you experience</h1>
+            <p>Please select day mode:</p>
+            <input type="radio" id="day" name="day" value="day">
+            <label for="day">
+                <i class="fas fa-sun" style="font-size: 18px;"></i>
+                Day</label><br>
+            <input type="radio" id="night" name="day" value="night">
+            <label for="night">
+                <i class="far fa-moon"></i>
+                Night</label><br>
+            <input type="radio" id="auto" name="day" value="auto" checked>
+            <label for="auto">
+                <i class="fas fa-sliders-h"></i>
+                Auto</label>
+        </div>
+		<div id="instructions">
+            <button style="position: absolute; top: 10px; right: 10px" onclick="switchMode()">CLI Mode</button>
+            <div  class="web_intruction">
+            <div style="display: flex;
+            justify-content: center;">
+                <div class="playIconWrapper2">
+                    <div class="playIconWrapper1">
+                        <i class="far fa-play-circle playIcon"></i>
+                    </div>
+                </div>
+            </div>
+            <br />
+			<span class="playBtn" style="font-size:36px; font-weight: bold;">Click to play</span>
+            <!-- <button class="playBtn1" style="font-size:20px; font-weight: bold;" onclick="play()">Play</button> -->
+			<br /><br />
+			Move: WASD or Arrow<br/>
+			Jump: SPACE (coming soon) <br/>
+			Look: MOUSE
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="mobile_instructions">
+            Your mobile browser is not able to render 3D view
+            <br />
+            Please try on computer devices
+        </div>
+            <div class="contact">
+                <h3>Connect me on</h1>
+                <a href="https://github.com/oswalgopal" target="_blank">
+                    <i class="fab fa-github-square"></i>
+                </a>
+                <a href="mailto:gploswal@gmail.com" target="_blank">
+                    <i class="fas fa-envelope-square"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/oswalgopal/" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=+917024415907" target="_blank">
+                    <i class="fab fa-whatsapp-square"></i>
+                </a>
+                <a href="https://docs.google.com/document/d/1Xvem4Hrvac1p8wQWxZZhP3R-yJq0BuGeGw5Ziki1Xjw/edit?usp=sharing" target="_blank" title="Resume">
+                    <i class="fab fa-pied-piper-square"></i>
+                </a>
+            </div>
+		</div>
+	</div>
+    <script src="js/three.min.js"></script>
+    <script src="js/PointerLockControls.js"></script>
+    <!-- <script src="js/jsm/helpers/RectAreaLightHelper.js"></script> -->
+    <!-- <script src="js/jsm/lights/RectAreaLightUniformsLib.js"></script> -->
+    <script src="js/custom/Banner.js"></script>
+    <script src="js/custom/showFloor.js"></script>
+    <script src="js/custom/MainGate.js"></script>
+    <script src="js/custom/ShowMainRoad.js"></script>
+    <script src="js/custom/showSquare.js"></script>
+    <script src="js/custom/boundryWall.js"></script>
+    <script src="js/custom/showSkills.js"></script>
+    <script src="js/custom/sound.js"></script>
+    <script src="js/custom/showProjects.js"></script>
+    <script src="js/custom/showAbout.js"></script>
+    <script src="js/custom/instruction_popup.js"></script>
+    <script src="js/custom/showField.js"></script>
+    <script src="js/custom/ShowGarden.js"></script>
+
+    <script>
+        document.onreadystatechange = function () {
+        var state = document.readyState
+        if (state == 'interactive') {
+            document.getElementById('loader').style.visibility="visible";
+            // console.log('loader started');
+        } else if (state == 'complete') {
+            setTimeout(function(){
+                document.getElementById('loader').style.visibility="hidden";
+                // console.log('loader ended');
+            }, 500);
+        }
+        }
+        function switchMode() {
+            window.open('cli.html', "_self");
+        }
+        const objects = [];
+        let raycaster;
+        let moveForward = false;
+        let moveBackward = false;
+		let moveLeft = false;
+		let moveRight = false;
+		let canJump = false;
+        raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
+        let prevTime = performance.now();
+		const velocity = new THREE.Vector3();
+		const direction = new THREE.Vector3();
+		const vertex = new THREE.Vector3();
+		const color = new THREE.Color();
+        // creating a screne
+        var scene = new THREE.Scene();
+        const hour = new Date().getHours();
+        if (hour >= 18) {
+            scene.background = new THREE.Color( 0x0000000 );
+        } else {
+            scene.background = new THREE.Color( 0xbcfbf7 );
+        }
+        function setDayMode() {
+            let mode = ""
+            const el = document.getElementsByName('day');
+            for (let i = 0; i < el.length; i++) {
+                if (el[i].checked) {
+                    mode = el[i].value;
+                }
+            }
+            if (mode === 'day') {
+                scene.background = new THREE.Color( 0xbcfbf7 );
+            } else if (mode === 'night') {
+                scene.background = new THREE.Color( 0x0000000 );
+            } else {
+                const hour = new Date().getHours();
+                if (hour >= 18) {
+                    scene.background = new THREE.Color( 0x0000000 );
+                } else {
+                    scene.background = new THREE.Color( 0xbcfbf7 );
+                }
+            }
+        }
+        // creating a camera for view
+        // fov — Camera frustum vertical field of view.
+        // aspect — Camera frustum aspect ratio.
+        // near — Camera frustum near plane.
+        // far — Camera frustum far plane.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
+        camera.position.y = 40;
+        camera.position.x = 0;
+        camera.position.z = 0;
+        // creating a renderer
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        // ================================================================ Light Start ================================================================
+        // var light = new THREE.DirectionalLight(0xffffff,1);
+        // light.position.set(50, 500, 22);
+        // light.target.position.set(300, 400, 200);
+
+        // light.shadow.camera.near = 0.5;
+        // light.shadow.camera.far = 5000;
+        // light.shadow.camera.left = -500;
+        // light.shadow.camera.bottom = -500;
+        // light.shadow.camera.right = 500;
+        // light.shadow.camera.top = 500;
+
+        // light.castShadow = true;
+        // scene.add(light);
+        scene.add( new THREE.AmbientLight( 0x666666 ) );
+        const light = new THREE.DirectionalLight( 0xdfebff, 1, 100 );
+        light.position.set( 50, 200, 100 );
+		light.position.multiplyScalar( 1.3 );
+        // light.position.set( 1000, 1000, 1000); //default; light shining from top
+        light.castShadow = true; // default false
+        scene.add( light );
+
+        light.shadow.mapSize.width = 1024; // default
+        light.shadow.mapSize.height = 1024; // default
+        light.shadow.camera.near = 0.5; // default
+        light.shadow.camera.far = 1000; // default
+        // const helper = new THREE.CameraHelper( light.shadow.camera );
+        // scene.add( helper );
+
+        // handling change in screen size
+        window.addEventListener('resize', function(){
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+            renderer.setSize(width, height);
+            // to keep the aspect ratior of camera
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // added controls
+        var controls =  new THREE.PointerLockControls( camera, document.body );
+        controls.getObject().position.y = 50; // for high camera
+        const blocker = document.getElementById( 'blocker' );
+        const unblocker = document.getElementById( 'unblocker' );
+        const game_instructions = document.getElementById( 'game_instructions' );
+        const game_instructions_text = document.getElementById('game_instructions_text');
+        const unblocker1 = document.getElementById( 'unblocker1' );
+		const instructions = document.getElementById( 'instructions' );
+        unblocker.style.display = "none";
+        game_instructions.style.display = "none";
+        unblocker1.style.display = "none";
+        function play() {
+            alert('game started');
+			controls.lock();
+        }
+        const audio_listener = new THREE.AudioListener();
+        camera.add( audio_listener );
+        // create a global audio source
+        const instruction_sound = new THREE.Audio( audio_listener );
+        // load a sound and set it as the Audio object's buffer
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load( '../../sound/alert_tune.mp3', function( buffer ) {
+            instruction_sound.setBuffer( buffer );
+            instruction_sound.setLoop( false );
+            instruction_sound.setVolume( 1 );
+        });
+        const listener = new THREE.AudioListener();
+        camera.add( listener );
+
+        // create a global audio source
+        const sound = new THREE.Audio( listener );
+
+        // load a sound and set it as the Audio object's buffer
+        const audioLoader2 = new THREE.AudioLoader();
+        audioLoader2.load( '../../sound/Project IGI - ingame - 07.mp3', function( buffer ) {
+            sound.setBuffer( buffer );
+            sound.setLoop( true );
+            sound.setVolume( 0.3 );
+            // sound.play();
+        });
+        // create a global audio source
+        const sound2 = new THREE.Audio( listener );
+
+        // load a sound and set it as the Audio object's buffer
+        const audioLoader3 = new THREE.AudioLoader();
+        audioLoader3.load( '../../sound/foot.mp3', function( buffer ) {
+            sound2.setBuffer( buffer );
+            sound2.setLoop( false );
+            sound2.setVolume( 1.5 );
+        });
+
+        controls.addEventListener( 'unlock', function () {
+            // blocker.style.display = 'block';
+            // instructions.style.display = '';
+            sound.stop();
+        });
+
+        instructions.addEventListener( 'click', function () {
+            setDayMode();
+			controls.lock();
+            sound.play();
+		} );
+
+		controls.addEventListener( 'lock', function () {
+			instructions.style.display = 'none';
+			blocker.style.display = 'none';
+            unblocker.style.display = "";
+            game_instructions.style.display = "none";
+            document.getElementById('interaction_text').style.display = "";
+            unblocker1.style.display = "";
+            playSound(camera, controls);
+            // instruction_sound.stop();
+		} );
+
+		controls.addEventListener( 'unlock', function () {
+            console.log('called');
+			blocker.style.display = 'block';
+            // game_instructions.style.display = "block";
+			instructions.style.display = '';
+            document.getElementById('interaction_text').style.display = "none";
+            unblocker.style.display = "none";
+            unblocker1.style.display = "none";
+            instruction_sound.stop();
+		} );
+        scene.add( controls.getObject() );
+
+        const onKeyDown = function ( event ) {
+            console.log(event.code);
+        switch ( event.code ) {
+            case 'ArrowUp':
+            case 'KeyW':
+                moveForward = true;
+                sound2.play();
+                break;
+
+            case 'ArrowLeft':
+            case 'KeyA':
+                moveLeft = true;
+                sound2.play();
+                break;
+
+            case 'ArrowDown':
+            case 'KeyS':
+                moveBackward = true;
+                sound2.play();
+                break;
+
+            case 'ArrowRight':
+            case 'KeyD':
+                moveRight = true;
+                sound2.play();
+                break;
+
+            case 'Space':
+                if ( canJump === true ) velocity.y += 350;
+                canJump = false;
+                break;
+        }
+        };
+
+        const onKeyUp = function ( event ) {
+
+        switch ( event.code ) {
+
+            case 'ArrowUp':
+            case 'KeyW':
+                moveForward = false;
+                break;
+
+            case 'ArrowLeft':
+            case 'KeyA':
+                moveLeft = false;
+                break;
+
+            case 'ArrowDown':
+            case 'KeyS':
+                moveBackward = false;
+                break;
+
+            case 'ArrowRight':
+            case 'KeyD':
+                moveRight = false;
+                break;
+
+        }
+
+        };
+
+        document.addEventListener( 'keydown', onKeyDown );
+        document.addEventListener( 'keyup', onKeyUp );
+
+        // ================================================================ SKY STARTS ================================================================
+        // var skyGeo = new THREE.SphereGeometry(100000, 25, 25);
+        // var loader  = new THREE.TextureLoader(),
+        // texture = loader.load( "img/sky.jpeg" );
+        // var material = new THREE.MeshPhongMaterial({ map: texture,});
+        // var sky = new THREE.Mesh(skyGeo, material);
+        // sky.material.side = THREE.BackSide;
+        // scene.add(sky);
+        // ================================================================ SKY END ================================================================
+
+        // ================================================================ TEXT START ================================================================
+        const textLoader = new THREE.FontLoader();
+		textLoader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
+
+        const textGeo = new THREE.TextGeometry( "GOPAL OSWAL ->", {
+            font: font,
+            size: 20,
+            height: 5,
+            curveSegments: 12,
+            bevelThickness: 2,
+            bevelSize: 1,
+            bevelEnabled: true
+        }
+        );
+
+        textGeo.computeBoundingBox();
+        // const centerOffset = - 0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+
+        const textMaterial = new THREE.MeshPhongMaterial( { color: 0xfffff, specular: 0xffffff } );
+
+        const text = new THREE.Mesh( textGeo, textMaterial );
+        text.position.x = 100;
+        text.position.y = 15;
+        text.position.z = 0;
+
+        // mesh.castShadow = true;
+        // mesh.receiveShadow = true;
+        scene.add( text );
+        });
+
+        const planeMaterial = new THREE.MeshBasicMaterial( { color: 0x6b7d8d } );
+        const cubes1 = new THREE.Mesh( new THREE.BoxGeometry( 300, 20, 20 ), planeMaterial );
+		cubes1.position.x = 200;
+		cubes1.position.y = 0;
+		cubes1.position.z = 0;
+		// cubes1.castShadow = true;
+		// cubes1.receiveShadow = true;
+		scene.add( cubes1 );
+        camera.position.z = 600;
+        // camera.position.z = 100;
+        camera.position.x = 100;
+        // camera.position.x = 3000;
+        camera.position.y = 50; // for high camera
+        // ================================================================ TEXT END ================================================================
+
+        // makeBanner(scene);
+        showFloor(scene, vertex);
+        showMainGate(scene);
+        showMainRoad(scene)
+        showSquare(scene);
+        showBoundryWall(scene);
+        showSkills(scene);
+        showProjects(scene);
+        showAbout(scene);
+        showField(scene);
+        showGarden(scene);
+        // showStars();
+        // function showStars() {
+        //     for (let i = 0; i < 1000; i++) {
+        //         const geometry = new THREE.CircleGeometry( 2, 2 );
+        //         const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+        //         const circle = new THREE.Mesh( geometry, material );
+        //         circle.position.y = 500;
+        //         circle.position.x = i%2 == 0 ? (200 * i + Math.random() * 200) : (-200 * i + Math.random() * 200);
+        //         circle.position.z = i%2 == 0 ? (500 * i + Math.random() * 500) : (-500 * i + Math.random() * 500);
+        //         scene.add( circle );
+        //     }
+        // }
+
+
+        // rendering to html
+        renderer.render( scene, camera );
+        document.body.appendChild( renderer.domElement );
+        animate();
+        setInterval(() => {
+            checkPosition(game_instructions, game_instructions_text, controls.getObject().position, instruction_sound);
+        }, 1000)
+        function animate() {
+            requestAnimationFrame( animate );
+            // console.log(controls.getObject().position);
+            // checkPosition(game_instructions, game_instructions_text, controls.getObject().position, instruction_sound);
+
+            const time = performance.now();
+
+            if ( controls.isLocked === true ) {
+
+                raycaster.ray.origin.copy( controls.getObject().position );
+                raycaster.ray.origin.y -= 10;
+
+                const intersections = raycaster.intersectObjects( objects );
+
+                const onObject = intersections.length > 0;
+
+                const delta = ( time - prevTime ) / 1000;
+
+                velocity.x -= velocity.x * 10.0 * delta;
+                velocity.z -= velocity.z * 10.0 * delta;
+
+                velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+
+                direction.z = Number( moveForward ) - Number( moveBackward );
+                direction.x = Number( moveRight ) - Number( moveLeft );
+                direction.normalize(); // this ensures consistent movements in all directions
+
+                if ( moveForward || moveBackward ) {
+                    velocity.z -= direction.z * 1800.0 * delta
+                    // playWalkSound(camera);
+                };
+                if ( moveLeft || moveRight ) {
+                    velocity.x -= direction.x * 1800.0 * delta
+                    // playWalkSound(camera);
+                };
+
+                if ( onObject === true ) {
+
+                    velocity.y = Math.max( 0, velocity.y );
+                    canJump = true;
+
+                }
+
+                controls.moveRight( - velocity.x * delta );
+                controls.moveForward( - velocity.z * delta );
+
+                controls.getObject().position.y += ( velocity.y * 2 * delta ); // new behavior
+                controls.getObject().position.y = 50; // for high camera
+                if ( controls.getObject().position.y < 10 ) {
+
+                    velocity.y = 0;
+                    controls.getObject().position.y = 10;
+
+                    canJump = true;
+
+                }
+
+            }
+
+            prevTime = time;
+
+            renderer.render( scene, camera );
+
+            }
+    </script>
+</body>
+</html>
